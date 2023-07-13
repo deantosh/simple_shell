@@ -43,7 +43,7 @@ int main(void)
 		argv = create_av(str_copy, num_tokens, delim); /*args list*/
 
 		/*execute system command*/
-		execute_system_command(argv);
+		execute_command(argv);
 
 		free_pp(argv); /*free--argv*/
 		free(str_copy); /*free--str_copy*/
