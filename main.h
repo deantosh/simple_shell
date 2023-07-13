@@ -17,8 +17,12 @@
 int get_token(char *str, const char *delim);
 char **create_av(char *str, int tokens, const char *delim);
 
-/*file: exec-system_command.c*/
-void execute_system_command(char **argv);
+/*file: execute_command.c*/
+void execute_command(char **argv);
+
+/*file: get_executable_path.c*/
+char *get_full_path(char *command);
+char *create_path(char *token, char *command);
 
 /*file: memory.c*/
 void free_pp(char **pp);
