@@ -37,19 +37,22 @@ int main(void)
 			perror("Memory allocation failed");
 			return (-1);
 		}
-		strcpy(str_copy, str); /*create a copy of str*/
+		/*create a copy of str*/
+		strcpy(str_copy, str);
 
 		num_tokens = get_token(str, delim);
 		argv = create_av(str_copy, num_tokens, delim); /*args list*/
 
-		/*execute command*/
-		exec_status = execute_builtin_command(argv); /*execute builtin cmd*/
-		if (exec_status == 1)/*builtin cmd not found*/
+		/*free memory after use*/
+		free(str_copy);
+
+		/*pass argv to the execute command functions*/
+		exec_status = command_parser(argv);
+		if (exec_status == 2) /*exit_shell*/
 		{
-			exec_status = execute_external_command(argv); /*execute system command*/
+			free(str);
+			return (0);
 		}
-		free(str_copy); /*free str copy*/
-		free_pp(argv); /*free--argv*/
 	}
 	return (0);
 }
