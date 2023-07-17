@@ -9,11 +9,11 @@
  * exit_shell - Exits shell.
  * @argv: A list of arguments to pass to function.
  *
- * Return: 0 (success).
+ * Return: 2 Always (success)
  */
 int exit_shell(char **argv)
 {
 	(void)argv; /*suppress warning*/
-	free_pp(argv); /*free mem*/
-	exit(0);
+
+	return (2);
 }
