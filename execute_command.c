@@ -8,7 +8,7 @@
 /**
  * execute_builtin_command - Executes commands builtin
  *				to the program.
- * @argv: The lisst of arguments used by the command.
+ * @argv: The list of arguments used by the command.
  *
  * Return: 0 (success) and 1 (fails).
  */
