@@ -8,7 +8,7 @@
 /**
  * main - Entry point.
  *
- * Return: void;
+ * Return: 0 Always (success);
  */
 int main(void)
 {
@@ -17,7 +17,7 @@ int main(void)
 	char *str = NULL, *str_copy;
 	size_t n = 0;
 	ssize_t n_bytes;
-	int num_tokens;
+	int num_tokens, exec_status;
 
 	while (1)
 	{
@@ -42,11 +42,14 @@ int main(void)
 		num_tokens = get_token(str, delim);
 		argv = create_av(str_copy, num_tokens, delim); /*args list*/
 
-		/*execute system command*/
-		execute_command(argv);
-
+		/*execute command*/
+		exec_status = execute_builtin_command(argv); /*execute builtin cmd*/
+		if (exec_status == 1)/*builtin cmd not found*/
+		{
+			exec_status = execute_external_command(argv); /*execute system command*/
+		}
+		free(str_copy); /*free str copy*/
 		free_pp(argv); /*free--argv*/
-		free(str_copy); /*free--str_copy*/
 	}
 	return (0);
 }
