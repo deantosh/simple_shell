@@ -34,6 +34,9 @@ typedef struct builtin_command{
 int get_token(char *str, const char *delim);
 char **create_av(char *str, int tokens, const char *delim);
 
+/*file: parser.c*/
+int command_parser(char **argv);
+
 /*file: execute_command.c*/
 int execute_builtin_command(char **argv);
 int get_builtin_len(builtin_s cmd_list[]);
