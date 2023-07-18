@@ -3,19 +3,20 @@
  * File: command_args_parser.c
  */
 
- #include "main.h"
+#include "main.h"
 
 /**
- * command_parser - Passes the argument list to builtin 
+ * command_parser - Passes the argument list to builtin
  *                  and external execute command functions.
  * @argv: The argument list.
- * 
- * Return: 0 Always (success) or 2 (exit shell).
+ *
+ * Return: 0 Always (success) or 2 (exit shell)
+ *		exit_status(exit shell with status).
  */
 int command_parser(char **argv)
 {
 	/*declare variables*/
-	int exec_status;
+	int exec_status, exit_status;
 
 	/*execute command*/
 	exec_status = execute_builtin_command(argv); /*execute builtin cmd*/
@@ -24,10 +25,19 @@ int command_parser(char **argv)
 		free_pp(argv);/*free memory allocated*/
 		return (0);
 	}
-	else if (exec_status == 2)/*exit is success*/
+	else if (exec_status != 1)/*exit is success*/
 	{
-		free_pp(argv);
-		return (2);
+		if (exec_status == 2)
+		{
+			free_pp(argv);
+			return (2);
+		}
+		else
+		{
+			exit_status = exec_status;
+			free_pp(argv);
+			return (exit_status);
+		}
 	}
 	else
 	{
@@ -43,5 +53,5 @@ int command_parser(char **argv)
 			free_pp(argv); /*free--argv*/
 		}
 	}
-    return (0);
+	return (0);
 }

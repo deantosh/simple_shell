@@ -53,6 +53,11 @@ int main(void)
 			free(str);
 			return (0);
 		}
+		if (exec_status != 0)
+		{
+			free(str);
+			return (exec_status);
+		}
 	}
 	return (0);
 }
