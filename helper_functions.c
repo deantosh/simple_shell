@@ -31,14 +31,14 @@ char *_strtok(char *src, const char *delim)
 			continue;
 		}
 		/*if end of src*/
-		if (*src == "\0")
+		if (*src == '\0')
 			return (NULL);
 		break;
 	}
-	token = src /*pos of token*/
+	token = src; /*pos of token*/
 	while (1)
 	{
-		if (*src == "\0")
+		if (*src == '\0')
 		{
 			next_token = src;
 			return (token);
@@ -46,7 +46,7 @@ char *_strtok(char *src, const char *delim)
 		if (is_delim(*src, delim))
 		{
 			/*replace delim with '\0'*/
-			*src = "\0";
+			*src = '\0';
 			next_token = src + 1; /*set pos of next token*/
 			return (token);
 		}
@@ -63,7 +63,7 @@ char *_strtok(char *src, const char *delim)
 */
 int is_delim(char ch, const char *delim)
 {
-	while (*delim != "\0")
+	while (*delim != '\0')
 	{
 		if (ch == *delim)
 			return (1);
@@ -82,7 +82,7 @@ int _strlen(char *str)
 {
 	int index = 0;
 
-	while (str[index] != "\0")
+	while (str[index] != '\0')
 		index++;
 
 	return (index);
