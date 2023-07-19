@@ -74,11 +74,11 @@ int get_token(char *str, const char *delim)
 	char *token;
 	int num_tokens = 0;
 
-	token = strtok(str, delim);
+	token = _strtok(str, delim);
 	while (token != NULL)
 	{
 		num_tokens++;
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	num_tokens++;
 
@@ -102,13 +102,13 @@ char **create_av(char *str, int tokens, const char *delim)
 	/*allocate mem for list of tokens*/
 	argv = malloc(sizeof(char *) * tokens);
 
-	token = strtok(str, delim);
+	token = _strtok(str, delim);
 	for (index = 0; token != NULL; index++)
 	{
 		/*allocate memory for each token*/
 		argv[index] = malloc(sizeof(char) * (strlen(token) + 1));
 		strcpy(argv[index], token);
-		token = strtok(NULL, delim);
+		token = _strtok(NULL, delim);
 	}
 	argv[index] = NULL;
 	return (argv);
