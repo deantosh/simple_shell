@@ -57,4 +57,9 @@ int exit_shell(char **argv);
 /*file: env.c*/
 int print_env(char **argv);
 
+/*file: helper_functions.c*/
+char *_strtok(char *src, const char *delim);
+int is_delim(char ch, const char *delim);
+int _strlen(char *str);
+
 #endif /*MAIN_H*/
