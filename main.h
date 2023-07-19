@@ -49,6 +49,13 @@ char *create_path(char *token, char *command);
 /*file: memory.c*/
 void free_pp(char **pp);
 
+/*file custom_getline.c*/
+ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
+
+/*Helper function for custom_getline.c File*/
+void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void assign_line(char **lineptr, size_t *n, char *buf, size_t buf_size);
+
 /*BUILTIN COMMANDS*/
 
 /*file: exit.c*/
