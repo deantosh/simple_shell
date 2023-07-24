@@ -1,3 +1,8 @@
+/*
+ * File: main.c
+ * Author: Deantosh Daiddoh & Lucky Archibong
+ */
+
 #include "main.h"
 #define BUFSIZE 1024
 

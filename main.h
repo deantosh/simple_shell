@@ -65,6 +65,12 @@ int exit_shell(char **argv);
 /*file: env.c*/
 int print_env(char **argv);
 
+/*file: change_directory.c*/
+int change_directory(const char *path);
+
+/*helper function for change_directory.c*/
+void get_pwd_env(void);
+
 /*file: helper_functions.c*/
 char *_strtok(char *src, const char *delim);
 int is_delim(char ch, const char *delim);
