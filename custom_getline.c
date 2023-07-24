@@ -1,142 +1,157 @@
-#include "main.h"
-#define INIT_BUF_SIZE 120
+/*
+ * File: main.c
+ * Author: Deantosh Daiddoh & Lucky Archibong
+ */
 
-/*Function prototypes */
-void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size);
-void assign_line(char **lineptr, size_t *n, char *buf, size_t buf_size);
+#include "main.h"
+#define BUFSIZE 1024
+
+/**
+ * ret_line - Assigns the line var for custom_getline
+ * @lineptr: Buffer that stores the input string
+ * @n: Size of lineptr
+ * @buffer: String that is been called to lineptr
+ * @j: Size of buffer
+ *
+ * Description:
+ * This function assigns the lineptr variable for custom_getline.
+ * It is responsible for updating the lineptr buffer with the input string
+ * and handling memory reallocation if needed.
+ */
+void ret_line(char **lineptr, size_t *n, char *buffer, size_t j);
+
+/**
+ * read_input - Reads input from the stream
+ * @input: Buffer to store the input
+ * @stream: Stream to read from
+ *
+ * Return: The number of bytes read
+ *
+ * Description:
+ * This function reads input from the stream and stores it in the input buffer.
+ * It returns the number of bytes read or -1 on error or end of file.
+ */
+ssize_t read_input(char **input, FILE *stream);
+
+/**
+ * custom_getline - Read input from stream
+ * @lineptr: Buffer that stores the input
+ * @n: Size of lineptr
+ * @stream: Stream to read from
+ *
+ * Return: The number of bytes read
+ *
+ * Description:
+ * This function reads input from the stream and stores it in lineptr.
+ * If no input is read, it returns -1.
+ * If input is read successfully, it updates lineptr and n accordingly.
+ */
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 
 /**
- *re_alloc - Reallocates a memory block using malloc and free.
- *
- *@ptr: A pointer to the memory previously allocated.
- *@old_size: The size in bytes of the original space for ptr.
- *@new_size: The size in bytes for the new memory block.
- *Return: If new_size == old_size - ptr.
- *        If new_size == 0 and ptr is not NULL - NULL.
- *        Otherwise - a pointer to the reallocated memory block.
+ * ret_line - Assigns the line var for custom_getline
+ * @lineptr: Buffer that stores the input string
+ * @n: Size of lineptr
+ * @buffer: String that is been called to lineptr
+ * @j: Size of buffer
  */
-void *re_alloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void ret_line(char **lineptr, size_t *n, char *buffer, size_t j)
 {
-	void *new_ptr;
-	char *original_ptr, *new_ptr_fill;
-	unsigned int i;
-
-	if (new_size == old_size)
-		return (ptr);
-
-	if (ptr == NULL)
+	if (*lineptr == NULL)
 	{
-		new_ptr = malloc(new_size);
-		if (new_ptr == NULL)
-			return (NULL);
-
-		return (new_ptr);
+		*n = (j > BUFSIZE) ? j : BUFSIZE;
+		*lineptr = buffer;
 	}
-
-	if (new_size == 0 && ptr != NULL)
+	else if (*n < j)
 	{
-		free(ptr);
-		return (NULL);
-	}
-
-	original_ptr = ptr;
-	new_ptr = malloc(new_size);
-	if (new_ptr == NULL)
-	{
-		free(ptr);
-		return (NULL);
-	}
-
-	new_ptr_fill = new_ptr;
-
-	for (i = 0; i < old_size && i < new_size; i++)
-		new_ptr_fill[i] = *original_ptr++;
-
-	free(ptr);
-	return (new_ptr);
-}
-
-/**
- *assign_line - Reassigns the lineptr variable for custom_getline.
- *
- *@lineptr: A buffer to store an input string.
- *@n: The size of lineptr.
- *@buf: The string to assign to lineptr.
- *@buf_size: The size of buf.
- */
-void assign_line(char **lineptr, size_t *n, char *buf, size_t buf_size)
-{
-	if (*lineptr == NULL || *n < buf_size)
-	{
-		*n = buf_size > INIT_BUF_SIZE ? buf_size : INIT_BUF_SIZE;
-		*lineptr = buf;
+		*n = (j > BUFSIZE) ? j : BUFSIZE;
+		*lineptr = buffer;
 	}
 	else
 	{
-		free(*lineptr);
-		*lineptr = buf;
+		strcpy(*lineptr, buffer);
+		free(buffer);
 	}
 }
 
 /**
- *custom_getline - Reads input from a stream.
+ * read_input - Reads input from the stream
+ * @input: Buffer to store the input
+ * @stream: Stream to read from
  *
- *@lineptr: A buffer to store the input.
- *@n: The size of lineptr.
- *@stream: The stream to read from.
+ * Return: The number of bytes read
+ */
+ssize_t read_input(char **input, FILE *stream)
+{
+	size_t input_pos;
+	char current_char = 'x';
+	int read_result;
+
+	fflush(stream);
+
+	*input = malloc(sizeof(char) * BUFSIZE);
+	if (!*input)
+	{
+		return (-1); /* Return -1 on memory allocation failure */
+	}
+
+	while (current_char != '\n')
+	{
+		read_result = fgetc(stream);
+		if (read_result == -1 || (read_result == 0 && input_pos == 0))
+		{
+			free(*input);
+			return (-1); /* Return -1 on error or end of file */
+		}
+
+		if (read_result == 0 && input_pos != 0)
+		{
+			input_pos++;
+			break; /* Break loop if end of file is reached */
+		}
+
+		if (input_pos >= BUFSIZE)
+		{
+			char *new_buffer = realloc(*input, input_pos + 1);
+
+			if (!new_buffer)
+			{
+				free(*input);
+				return (-1); /* Return -1 on memory reallocation failure */
+			}
+
+			*input = new_buffer;
+		}
+
+		current_char = (char)read_result;
+		(*input)[input_pos] = current_char;
+		input_pos++;
+	}
+
+	(*input)[input_pos] = '\0';
+
+	return (input_pos); /* Return the number of bytes read */
+}
+
+/**
+ * custom_getline - Read input from stream
+ * @lineptr: Buffer that stores the input
+ * @n: Size of lineptr
+ * @stream: Stream to read from
  *
- *Return: The number of bytes read.
+ * Return: The number of bytes read
  */
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
 {
-	static ssize_t input;
-	ssize_t ret;
-	char c = 'x', *buf;
-	int r;
 
-	if (input == 0)
-		fflush(stream);
-	else
-		return (-1);
+	ssize_t input_size = read_input(lineptr, stream);
 
-	input = 0;
-
-	buf = malloc(sizeof(char) * INIT_BUF_SIZE);
-	if (!buf)
-		return (-1);
-
-	while (1)
+	if (input_size == -1)
 	{
-		r = read(fileno(stdin), &c, 1);
-		if (r == -1 || (r == 0 && input == 0))
-		{
-			free(buf);
-			return (-1);
-		}
-
-		if (r == 0 && input != 0)
-		{
-			input++;
-			break;
-		}
-
-		if (input >= INIT_BUF_SIZE)
-			buf = re_alloc(buf, input, input + 1);
-
-		buf[input] = c;
-		input++;
-
-		if (c == '\n')
-			break;
+		return (-1); /* Return -1 on error or end of file */
 	}
 
-	buf[input] = '\0';
+	ret_line(lineptr, n, *lineptr, input_size);
 
-	assign_line(lineptr, n, buf, input);
-
-	ret = input;
-	if (r != 0)
-		input = 0;
-	return (ret);
+	return (input_size); /* Return the number of bytes read */
 }
