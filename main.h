@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 /*Global veriable*/
-extern  char **environ;
+extern char **environ;
 
 /*MACROS*/
 #define PROMPT "#cisfun$"
@@ -19,16 +19,17 @@ extern  char **environ;
 /*command struct*/
 /**
  * struct builtin_command - Creates a type for the command and
- *				its corresponding function.
+ *                              its corresponding function.
  * @name: A pointer to the command name.
  * @func: A function pointer to its corresponding pointer.
  *
  * Description: struct for builtin commands.
- */ 
-typedef struct builtin_command{
+ */
+typedef struct builtin_command
+{
 	char *name;
 	int (*func)(char **);
-} builtin_s;
+} builtin_s; 
 
 /*file: main.c*/
 int get_token(char *str, const char *delim);
@@ -50,14 +51,15 @@ char *create_path(char *token, char *command);
 void free_pp(char **pp);
 
 /*file custom_getline.c*/
-ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream)
+ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
 
-	/*Helper function for custom_getline.c File*/
-void assign_line(char **lineptr, size_t *n, char *buffer, size_t j)
+/*Helper function for custom_getline.c File*/
+void ret_line(char **lineptr, size_t *n, char *buffer, size_t j);
+ssize_t read_input(char **input, FILE *stream);
 
-	/*BUILTIN COMMANDS*/
+/*BUILTIN COMMANDS*/
 
-	/*file: exit.c*/
+/*file: exit.c*/
 int exit_shell(char **argv);
 
 /*file: env.c*/
