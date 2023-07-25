@@ -40,8 +40,6 @@ int change_directory(const char *path)
     get_pwd_env();
     return (0);
 }
-<<<<<<< HEAD:builtin_cd.c
-=======
 
 /**
  *executor - Entry point of the program.
@@ -79,4 +77,3 @@ int executor(int argc, char **argv)
 
     return (0);
 }
->>>>>>> 81607af6c021689b10c6e9e6819635afe3432458:change_directory.c
