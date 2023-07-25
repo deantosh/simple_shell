@@ -20,6 +20,8 @@ int execute_builtin_command(char **argv)
 	builtin_s cmd_list[] = {
 		{"exit", exit_shell},
 		{"env", print_env},
+		{"setenv", set_env},
+		{"unsetenv", unset_env},
 		{NULL, NULL}
 	};
 
