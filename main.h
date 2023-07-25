@@ -59,12 +59,6 @@ ssize_t read_input(char **input, FILE *stream);
 
 /*BUILTIN COMMANDS*/
 
-/*file: exit.c*/
-int exit_shell(char **argv);
-
-/*file: env.c*/
-int print_env(char **argv);
-
 /*file: change_directory.c*/
 int change_directory(const char *path);
 
@@ -75,5 +69,19 @@ void get_pwd_env(void);
 char *_strtok(char *src, const char *delim);
 int is_delim(char ch, const char *delim);
 int _strlen(char *str);
+
+/*file: builtin_exit.c*/
+int exit_shell(char **argv);
+
+/*file:  builtin_env.c*/
+int print_env(char **argv);
+int set_env(char **argv);
+int unset_env(char **argv);
+
+/*file: env_helper_functions*/
+int add_var_to_environ(int size, char *value);
+int get_environ_len(void);
+void free_environ(void);
+char **_getenv(const char *name);
 
 #endif /*MAIN_H*/
