@@ -42,14 +42,14 @@ int change_directory(const char *path)
     return (0);
 }
 
-int main(int argc, char *argv)
-{
-    char *home_dir = getenv("HOME");
-    char *cur_work_dir = getcwd(NULL, 0);
+// int main(int argc, char *argv)
+// {
+//     char *home_dir = getenv("HOME");
+//     char *cur_work_dir = getcwd(NULL, 0);
 
-    /*if arg is not given, change directory $PATH to $HOME*/
-    if (argc ==1 || (argc ==2 && strcmp(argv[1], "~") == 0))
-    {
-        chdir(home_dir);
-    }
-}
+//     /*if arg is not given, change directory $PATH to $HOME*/
+//     if (argc ==1 || (argc ==2 && strcmp(argv[1], "~") == 0))
+//     {
+//         chdir(home_dir);
+//     }
+// }
