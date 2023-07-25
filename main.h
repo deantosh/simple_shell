@@ -64,6 +64,7 @@ int change_directory(const char *path);
 
 /*helper function for change_directory.c*/
 void get_pwd_env(void);
+int executor(int argc, char **argv);
 
 /*file: helper_functions.c*/
 char *_strtok(char *src, const char *delim);
