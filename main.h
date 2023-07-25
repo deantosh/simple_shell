@@ -60,7 +60,7 @@ ssize_t read_input(char **input, FILE *stream);
 /*BUILTIN COMMANDS*/
 
 /*file: change_directory.c*/
-int change_directory(const char *path);
+int change_directory(char **argv);
 
 /*helper function for change_directory.c*/
 void get_pwd_env(void);
