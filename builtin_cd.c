@@ -29,16 +29,17 @@ void get_pwd_env(void)
  *
  *Return: On success, 0. failed, -1
  */
-int change_directory(const char *path)
+int change_directory(char **argv)
 {
-    if (chdir(path) != 0)
-    {
-        perror("chdir");
-        return (-1);
-    }
+	char *path = argv[1];
 
-    get_pwd_env();
-    return (0);
+	if (chdir(path) != 0)
+	{
+		perror("chdir");
+		return (-1);
+	}
+	get_pwd_env();
+	return (0);
 }
 <<<<<<< HEAD:builtin_cd.c
 =======
