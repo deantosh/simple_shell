@@ -1,5 +1,5 @@
 /*
- * File: env.c
+11;rgb:0000/0000/0000* File: env.c
  * Author: Deantosh Daiddoh & Lucky Archibong
  */
 
@@ -40,8 +40,8 @@ int set_env(char **argv)
 	int len, status, size;
 
 	/*set values*/
-	var_name = argv[0];
-	var_value = argv[1];
+	var_name = argv[1];
+	var_value = argv[2];
 
 	if (!var_name || !var_value)
 		return (-1);
