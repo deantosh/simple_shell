@@ -1,5 +1,5 @@
 /*
-11;rgb:0000/0000/0000* File: env.c
+ * File: env.c
  * Author: Deantosh Daiddoh & Lucky Archibong
  */
 
