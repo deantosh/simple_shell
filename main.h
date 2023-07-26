@@ -29,11 +29,12 @@ typedef struct builtin_command
 {
 	char *name;
 	int (*func)(char **);
-} builtin_s; 
+} builtin_s;
 
 /*file: main.c*/
 int get_token(char *str, const char *delim);
 char **create_av(char *str, int tokens, const char *delim);
+char **str_parser_to_create_av(char *str, ssize_t bytes);
 
 /*file: parser.c*/
 int command_parser(char **argv);
