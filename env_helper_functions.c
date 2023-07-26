@@ -9,7 +9,7 @@
  * add_var_to_environ - creates a copy of the environment variable.
  *					not add NULL.
  * @size: The size on the new_environ.
- *
+ * @new_value: The environ variable to add to the created environ.
  * Return: 0 (success) or 1 (fails).
 */
 int add_var_to_environ(int size, char *new_value)
