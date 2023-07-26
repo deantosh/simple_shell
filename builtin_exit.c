@@ -20,5 +20,5 @@ int exit_shell(char **argv)
 		exit_status = atoi(argv[1]);
 		return (exit_status);
 	}
-	exit (0); /*if exit status not provided*/
+	return (2); /*if exit status not provided*/
 }
