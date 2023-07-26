@@ -12,17 +12,17 @@
  */
 int main(void)
 {
-	char **argv;
-	const char *delim = " \n";
-	char *str = NULL, *str_copy;
+	char **argv, *str = NULL;
 	size_t n = 0;
 	ssize_t n_bytes;
-	int num_tokens, exec_status;
+	int exec_status;
 
 	while (1)
 	{
+		/*execute on interactive mode*/
 		if (isatty(STDIN_FILENO))
 			printf("%s ", PROMPT);
+
 		/*read from stdin stream*/
 		n_bytes = getline(&str, &n, stdin);
 		if (n_bytes == -1)
@@ -31,22 +31,10 @@ int main(void)
 			printf("\n");
 			return (0);
 		}
-		str_copy = malloc(sizeof(char) * (n_bytes + 1));
-		if (str_copy == NULL)
-		{
-			perror("Memory allocation failed");
-			return (-1);
-		}
-		/*create a copy of str*/
-		strcpy(str_copy, str);
+		/*pass str to function to create argv*/
+		argv = str_parser_to_create_av(str, n_bytes);
 
-		num_tokens = get_token(str, delim);
-		argv = create_av(str_copy, num_tokens, delim); /*args list*/
-
-		/*free memory after use*/
-		free(str_copy);
-
-		/*pass argv to the execute command functions*/
+		/*pass args for execution*/
 		exec_status = command_parser(argv);
 		if (exec_status == 2) /*exit_shell*/
 		{
@@ -60,6 +48,38 @@ int main(void)
 		}
 	}
 	return (0);
+}
+
+/**
+ * str_parser_to_create_av - Passes the str to create_av function
+ *                           to create argv.
+ * @str: The string read from the stdin stream.
+ * @bytes: The number of bytes read.
+ *
+ * Return: argv (success) or NULL (fails).
+*/
+char **str_parser_to_create_av(char *str, ssize_t bytes)
+{
+	char **argv, *str_copy;
+	const char *delim = " \n";
+	ssize_t size;
+	int num_tokens;
+
+	/*size of str_copy*/
+	size = bytes + 1;
+	/*allocate memory for str_copy*/
+	str_copy = malloc(sizeof(char) * size);
+	if (str_copy == NULL)
+	{
+		perror("Failed to allocate memory");
+		return (NULL);
+	}
+	/*create a copy of str*/
+	strcpy(str_copy, str);
+	num_tokens = get_token(str, delim);
+	argv = create_av(str_copy, num_tokens, delim);
+	free(str_copy);
+	return (argv);
 }
 
 /**
