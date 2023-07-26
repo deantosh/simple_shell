@@ -25,7 +25,7 @@ int command_parser(char **argv)
 		free_pp(argv);/*free memory allocated*/
 		return (0);
 	}
-	if (exec_status != 1)/*exit is success*/
+	if (exec_status != 1)
 	{
 		if (exec_status == 2)
 		{
