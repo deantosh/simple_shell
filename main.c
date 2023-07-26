@@ -39,7 +39,7 @@ int main(void)
 		if (exec_status == 2) /*exit_shell*/
 		{
 			free(str);
-			return (0);
+			return EXIT_SUCCESS;
 		}
 		if (exec_status != 0)
 		{
