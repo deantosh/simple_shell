@@ -22,6 +22,7 @@ int execute_builtin_command(char **argv)
 		{"env", print_env},
 		{"setenv", set_env},
 		{"unsetenv", unset_env},
+		{"cd", change_directory},
 		{NULL, NULL}
 	};
 
