@@ -11,21 +11,21 @@
  * @argv: The argument list.
  *
  * Return: 0 Always (success) or 2 (exit shell)
- *		exit_status(exit shell with status).
+ *		exit_status(exit shell with status) or 1(fails).
  */
 int command_parser(char **argv)
 {
 	/*declare variables*/
 	int exec_status, exit_status;
 
-	/*execute command*/
-	exec_status = execute_builtin_command(argv); /*execute builtin cmd*/
+	/*execute builtin command*/
+	exec_status = execute_builtin_command(argv);
 	if (exec_status == 0)/*success*/
 	{
 		free_pp(argv);/*free memory allocated*/
 		return (0);
 	}
-	else if (exec_status != 1)/*exit is success*/
+	if (exec_status != 1)/*exit is success*/
 	{
 		if (exec_status == 2)
 		{
@@ -39,19 +39,18 @@ int command_parser(char **argv)
 			return (exit_status);
 		}
 	}
-	else
+
+	/*execute system command*/
+	exec_status = execute_external_command(argv);
+	if (exec_status == 0)/*success*/
 	{
-		exec_status = execute_external_command(argv); /*execute system command*/
-		if (exec_status == 0)/*success*/
-		{
-			free_pp(argv);/*free memory allocated*/
-			return (0);
-		}
-		else
-		{
-			/*command does not exists*/
-			free_pp(argv); /*free--argv*/
-		}
+		free_pp(argv);/*free memory allocated*/
+		return (0);
+	}
+	else /*command not found*/
+	{
+		perror("Error:");
+		free_pp(argv);
 	}
 	return (0);
 }

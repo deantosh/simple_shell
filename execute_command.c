@@ -85,11 +85,14 @@ int execute_external_command(char **argv)
 
 			if (pid == 0)
 			{
-				if (execve(full_command, argv, NULL) == -1)
-					return (1);
+				/*execute command*/
+				execve(full_command, argv, NULL);
 			}
-			wait(&status);
-			free(full_command); /*free memory*/
+			else
+			{
+				wait(&status);
+				free(full_command); /*free full command*/
+			}
 		}
 	}
 	return (0);
