@@ -38,7 +38,6 @@ int main(void)
 		exec_status = command_parser(argv);
 		if (exec_status)
 		{
-			printf("%d\n", exec_status);
 			/*command not found*/
 			if (exec_status == 2)
 				return (2);
