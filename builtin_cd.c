@@ -33,10 +33,10 @@ int change_directory(char **argv)
 {
 	char *path = argv[1];
 
-	if (chdir(path) != 0)
+	if (chdir(path) == -1)/*fails to change*/
 	{
-		perror("chdir");
-		return (-1);
+		chdir(getenv("HOME"));
+		return (0);
 	}
 	get_pwd_env();
 	return (0);
