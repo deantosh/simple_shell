@@ -36,19 +36,16 @@ int main(void)
 
 		/*pass args for execution*/
 		exec_status = command_parser(argv);
-		if (exec_status == 1) /*exit_shell*/
+
+		/*exit shell*/
+		if (exec_status)
 		{
+			/*free memory*/
 			free(str);
-			return (0);
-		}
-		if (exec_status == 2)
-		{
-			free(str);
-			return (2);
-		}
-		if (exec_status != 0)
-		{
-			free(str);
+
+			/*if no exit status given*/
+			if (exec_status == -1)
+				return (0);
 			return (exec_status);
 		}
 	}

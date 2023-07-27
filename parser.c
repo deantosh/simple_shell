@@ -16,46 +16,34 @@
 int command_parser(char **argv)
 {
 	/*declare variables*/
-	int exec_status, exit_status;
+	int exec_status;
 
 	/*execute builtin command*/
 	exec_status = execute_builtin_command(argv);
 	if (exec_status == 0)/*success*/
 	{
 		free_pp(argv);/*free memory allocated*/
+		return (exec_status);
+	}
+	else if (exec_status == 1)
+	{
+		/*execute external program*/
+		exec_status = execute_external_command(argv);
+		if (exec_status == 0)/*success*/
+		{
+			free_pp(argv);/*free memory allocated*/
+			return (0);
+		}
+		else /*if not command*/
+		{
+			perror("Error:");
+			free_pp(argv);
+		}
 		return (0);
 	}
-	if (exec_status != 1)
+	else /*exit shell*/
 	{
-		if (exec_status == -1)
-		{
-			free_pp(argv);
-			return (1);
-		}
-		else if (exec_status == 2)
-		{
-			free_pp(argv);
-			return (2);
-		}
-		else
-		{
-			exit_status = exec_status;
-			free_pp(argv);
-			return (exit_status);
-		}
-	}
-
-	/*execute system command*/
-	exec_status = execute_external_command(argv);
-	if (exec_status == 0)/*success*/
-	{
-		free_pp(argv);/*free memory allocated*/
-		return (0);
-	}
-	else /*command not found*/
-	{
-		perror("Error:");
 		free_pp(argv);
+		return (exec_status);
 	}
-	return (0);
 }

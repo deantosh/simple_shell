@@ -13,7 +13,7 @@
  */
 int exit_shell(char **argv)
 {
-	int exit_status;
+	int exit_status = -1;
 
 	if (argv[1]) /*check if exit status is provided*/
 	{
@@ -24,5 +24,5 @@ int exit_shell(char **argv)
 		}
 		return (exit_status);
 	}
-	return (-1); /*exit without status*/
+	return (exit_status); /*exit without status*/
 }
