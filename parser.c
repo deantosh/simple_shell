@@ -18,31 +18,35 @@ int command_parser(char **argv)
 	/*declare variables*/
 	int exec_status;
 
-	/*execute builtin command*/
-	exec_status = execute_builtin_command(argv);
-	if (exec_status == 0)/*success*/
+	if (argv[0])
 	{
-		free_pp(argv);/*free memory allocated*/
-		return (exec_status);
-	}
-	else if (exec_status == 1)
-	{
-		/*execute external program*/
-		exec_status = execute_external_command(argv);
+		/*execute builtin command*/
+		exec_status = execute_builtin_command(argv);
 		if (exec_status == 0)/*success*/
 		{
 			free_pp(argv);/*free memory allocated*/
-			return (0);
+			return (exec_status);
 		}
-		else /*if not command*/
+		else if (exec_status == 1)
+		{
+			/*execute external program*/
+			exec_status = execute_external_command(argv);
+			if (exec_status == 0)/*success*/
+			{
+				free_pp(argv);/*free memory allocated*/
+				return (0);
+			}
+			else /*if not command*/
+			{
+				free_pp(argv);
+				return (exec_status);
+			}
+		}
+		else /*exit shell*/
 		{
 			free_pp(argv);
 			return (exec_status);
 		}
 	}
-	else /*exit shell*/
-	{
-		free_pp(argv);
-		return (exec_status);
-	}
+	return (0);
 }
