@@ -28,7 +28,7 @@ int main(void)
 		if (n_bytes == -1)
 		{
 			free(str);
-			printf("\n");
+			/*new line character*/
 			return (0);
 		}
 		/*pass str to function to create argv*/
