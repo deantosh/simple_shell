@@ -27,7 +27,12 @@ int command_parser(char **argv)
 	}
 	if (exec_status != 1)
 	{
-		if (exec_status == 2)
+		if (exec_status == -1)
+		{
+			free_pp(argv);
+			return (1);
+		}
+		else if (exec_status == 2)
 		{
 			free_pp(argv);
 			return (2);

@@ -18,7 +18,11 @@ int exit_shell(char **argv)
 	if (argv[1]) /*check if exit status is provided*/
 	{
 		exit_status = atoi(argv[1]);
+		if (exit_status == 0)/*if status not num*/
+		{
+			return (2);
+		}
 		return (exit_status);
 	}
-	return (2); /*if exit status not provided*/
+	return (-1); /*exit without status*/
 }

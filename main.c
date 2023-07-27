@@ -36,10 +36,15 @@ int main(void)
 
 		/*pass args for execution*/
 		exec_status = command_parser(argv);
-		if (exec_status == 2) /*exit_shell*/
+		if (exec_status == 1) /*exit_shell*/
 		{
 			free(str);
 			return (0);
+		}
+		if (exec_status == 2)
+		{
+			free(str);
+			return (2);
 		}
 		if (exec_status != 0)
 		{
