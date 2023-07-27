@@ -36,10 +36,9 @@ int command_parser(char **argv)
 		}
 		else /*if not command*/
 		{
-			perror("Error:");
 			free_pp(argv);
+			return (exec_status);
 		}
-		return (0);
 	}
 	else /*exit shell*/
 	{

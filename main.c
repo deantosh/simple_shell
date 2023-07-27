@@ -36,17 +36,14 @@ int main(void)
 
 		/*pass args for execution*/
 		exec_status = command_parser(argv);
-
-		/*exit shell*/
 		if (exec_status)
 		{
-			/*free memory*/
-			free(str);
+			printf("%d\n", exec_status);
+			/*command not found*/
+			if (exec_status == 2)
+				return (2);
 
-			/*if no exit status given*/
-			if (exec_status == -1)
-				return (0);
-			return (exec_status);
+			return (0);
 		}
 	}
 	return (0);

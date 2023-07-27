@@ -71,7 +71,7 @@ int get_builtin_len(builtin_s cmd_list[])
 int execute_external_command(char **argv)
 {
 	char *command = NULL, *full_command = NULL;
-	int status;
+	int status, ret_status;
 	pid_t pid;
 
 	if (argv)
@@ -87,12 +87,18 @@ int execute_external_command(char **argv)
 			if (pid == 0)
 			{
 				/*execute command*/
-				execve(full_command, argv, NULL);
+				if (execve(full_command, argv, NULL) == -1)
+					_exit(2);
 			}
 			else
 			{
 				wait(&status);
 				free(full_command); /*free full command*/
+				if (WIFEXITED(status))
+				{
+					ret_status = WEXITSTATUS(status);
+					return (ret_status);
+				}
 			}
 		}
 	}
