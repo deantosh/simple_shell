@@ -80,19 +80,21 @@ int execute_external_command(char **argv)
 
 		if (full_command == NULL)/*if command not found*/
 		{
-			perror(argv[0]);
-			return (1);
+			if (argv[0])
+			{
+				fprintf(stderr, "hsh: %s: command not found\n", argv[0]);
+				return (0);
+			}
 		}
-
 		if (full_command)
 		{
 			/*create a child process*/
 			pid = fork();
-
 			if (pid == 0)
 			{
 				/*execute command*/
 				execve(full_command, argv, NULL);
+				perror(argv[0]);
 			}
 			else
 			{
