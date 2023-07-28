@@ -81,7 +81,7 @@ int execute_external_command(char **argv)
 		if (full_command == NULL)/*if command not found*/
 		{
 			perror(argv[0]);
-			return (2);
+			return (1);
 		}
 
 		if (full_command)
