@@ -28,24 +28,26 @@ int main(void)
 		if (n_bytes == -1)
 		{
 			free(str);
-			/*new line character*/
+			/*new line character removed*/
 			return (0);
 		}
 		/*pass str to function to create argv*/
 		argv = str_parser_to_create_av(str, n_bytes);
-
-		/*pass args for execution*/
-		exec_status = command_parser(argv);
-		if (exec_status)
+		if (argv)
 		{
-			/*exit without status*/
-			if (exec_status == 2)
+			/*pass args for execution*/
+			exec_status = command_parser(argv);
+			if (exec_status)
 			{
-				free(str);
-				return (0);
+				/*exit without status*/
+				if (exec_status == 2)
+				{
+					free(str);
+					return (0);
+				}
+				/*exit with status*/
+				return (exec_status);
 			}
-			/*exit with status*/
-			return (exec_status);
 		}
 	}
 	return (0);
@@ -78,6 +80,12 @@ char **str_parser_to_create_av(char *str, ssize_t bytes)
 	/*create a copy of str*/
 	strcpy(str_copy, str);
 	num_tokens = get_token(str, delim);
+	if (num_tokens == 0)
+	{
+		free(str_copy);
+		return (NULL);
+	}
+	num_tokens++; /*account for NULL value*/
 	argv = create_av(str_copy, num_tokens, delim);
 	free(str_copy);
 	return (argv);
@@ -101,7 +109,6 @@ int get_token(char *str, const char *delim)
 		num_tokens++;
 		token = _strtok(NULL, delim);
 	}
-	num_tokens++;
 
 	return (num_tokens);
 }
