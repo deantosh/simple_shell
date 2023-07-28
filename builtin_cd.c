@@ -27,7 +27,7 @@ void get_pwd_env(void)
  *change_directory - Change current working directory.
  *@argv: A list of arguments to pass to the function.
  *
- *Return: On success, 0. failed, -1
+ *Return: On success, 0. failed, 1
  */
 int change_directory(char **argv)
 {
