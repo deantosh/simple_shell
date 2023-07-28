@@ -13,8 +13,8 @@
  */
 int exit_shell(char **argv)
 {
-	int exit_status = -1;
 	(void)argv;
 
-	return (exit_status); /*exit without status*/
+	/*exit without status*/
+	return (2);
 }
