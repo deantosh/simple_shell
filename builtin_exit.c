@@ -22,7 +22,7 @@ int exit_shell(char **argv)
 		if (exit_status <= 0)
 		{
 			fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", argv[1]);
-			return (0);
+			return (2);
 		}
 		else /*if num*/
 		{
