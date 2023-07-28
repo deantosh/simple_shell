@@ -40,7 +40,10 @@ int main(void)
 		{
 			/*exit without status*/
 			if (exec_status == 2)
-				return (2);
+			{
+				free(str);
+				return (0);
+			}
 			/*exit with status*/
 			return (exec_status);
 		}
