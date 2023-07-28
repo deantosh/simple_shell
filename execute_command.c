@@ -71,13 +71,18 @@ int get_builtin_len(builtin_s cmd_list[])
 int execute_external_command(char **argv)
 {
 	char *command = NULL, *full_command = NULL;
-	int status, ret_status;
 	pid_t pid;
 
 	if (argv)
 	{
 		command = argv[0];
 		full_command = get_full_path(command);
+
+		if (full_command == NULL)/*if command not found*/
+		{
+			perror(argv[0]);
+			return (2);
+		}
 
 		if (full_command)
 		{
@@ -87,18 +92,12 @@ int execute_external_command(char **argv)
 			if (pid == 0)
 			{
 				/*execute command*/
-				if (execve(full_command, argv, NULL) == -1)
-					_exit(2);
+				execve(full_command, argv, NULL);
 			}
 			else
 			{
-				wait(&status);
+				wait(NULL);
 				free(full_command); /*free full command*/
-				if (WIFEXITED(status))
-				{
-					ret_status = WEXITSTATUS(status);
-					return (ret_status);
-				}
 			}
 		}
 	}
