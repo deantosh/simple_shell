@@ -83,7 +83,7 @@ int execute_external_command(char **argv)
 			if (argv[0])
 			{
 				fprintf(stderr, "hsh: %s: command not found\n", argv[0]);
-				return (0);
+				return (127);
 			}
 		}
 		if (full_command)
