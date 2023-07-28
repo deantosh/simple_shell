@@ -13,8 +13,22 @@
  */
 int exit_shell(char **argv)
 {
-	(void)argv;
+	int exit_status;
 
+	if (argv[1]) /*check if exit status is provided*/
+	{
+		exit_status = atoi(argv[1]);
+		/*if arg not a number*/
+		if (exit_status <= 0)
+		{
+			fprintf(stderr, "./hsh: 1: exit: Illegal number: %s\n", argv[1]);
+			return (0);
+		}
+		else /*if num*/
+		{
+			return (exit_status);
+		}
+	}
 	/*exit without status*/
 	return (2);
 }
