@@ -72,12 +72,12 @@ int execute_external_command(char **argv)
 {
 	char *command = NULL, *full_command = NULL;
 	pid_t pid;
+	int status, exit_status;
 
 	if (argv)
 	{
 		command = argv[0];
 		full_command = get_full_path(command);
-
 		if (full_command == NULL)/*if command not found*/
 		{
 			if (argv[0])
@@ -93,13 +93,18 @@ int execute_external_command(char **argv)
 			if (pid == 0)
 			{
 				/*execute command*/
-				execve(full_command, argv, NULL);
-				perror(argv[0]);
+				if (execve(full_command, argv, NULL) == -1)
+					exit(1);
 			}
 			else
 			{
-				wait(NULL);
-				free(full_command); /*free full command*/
+				wait(&status);
+				free(full_command);/*free memory*/
+				if (WIFEXITED(status))
+				{
+					exit_status = WEXITSTATUS(status);
+					return (exit_status);
+				}
 			}
 		}
 	}

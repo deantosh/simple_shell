@@ -30,5 +30,5 @@ int exit_shell(char **argv)
 		}
 	}
 	/*exit without status*/
-	return (2);
+	return (-1);
 }
