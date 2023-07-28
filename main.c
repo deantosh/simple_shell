@@ -38,7 +38,7 @@ int main(void)
 		exec_status = command_parser(argv);
 		if (exec_status)
 		{
-			/*command not found*/
+			/*exit without status*/
 			if (exec_status == 2)
 				return (2);
 			if (exec_status == -1)
