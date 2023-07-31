@@ -78,13 +78,10 @@ int execute_external_command(char **argv)
 	{
 		command = argv[0];
 		full_command = get_full_path(command);
-		if (full_command == NULL)/*if command not found*/
+		if (full_command == NULL)
 		{
-			if (argv[0])
-			{
-				fprintf(stderr, "hsh: %s: not found\n", argv[0]);
-				return (127);
-			}
+			fprintf(stderr, "./hsh: 1: %s: not found\n", argv[0]);
+			return (127);
 		}
 		if (full_command)
 		{
