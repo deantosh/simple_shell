@@ -36,15 +36,15 @@ int print_env(char **argv)
 int set_env(char **argv)
 {
 	char **env_var = NULL;
-	char *new_value, *var_name, *var_value;
+	char *new_value, *var_name = NULL, *var_value = NULL;
 	int len, status, size;
+
+	if (!argv[1] || argv[2])
+		return (0);
 
 	/*set values*/
 	var_name = argv[1];
 	var_value = argv[2];
-
-	if (!var_name || !var_value)
-		return (0);
 
 	/*allocate memory of new value*/
 	new_value = malloc(strlen(var_name) + strlen(var_value) + 2);
