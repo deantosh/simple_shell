@@ -28,6 +28,7 @@ int main(void)
 		if (n_bytes == -1)
 		{
 			free(str);
+			free_environ();
 			/*new line character removed*/
 			return (0);
 		}
@@ -39,6 +40,7 @@ int main(void)
 			exec_status = command_parser(argv);
 			if (exec_status)
 			{
+				free_environ();/*free new environ alloc*/
 				/*exit without status*/
 				if (exec_status == -1)
 				{

@@ -85,7 +85,7 @@ void free_environ(void)
  */
 char **_getenv(const char *name)
 {
-	int index, len, result;
+	int index = 0, len, result;
 
 	len = strlen(name);
 	while (environ[index])
