@@ -39,7 +39,7 @@ int set_env(char **argv)
 	char *new_value, *var_name = NULL, *var_value = NULL;
 	int len, status, size;
 
-	if (!argv[1] || argv[2])
+	if (!argv[1] || !argv[2])
 		return (0);
 
 	/*set values*/
