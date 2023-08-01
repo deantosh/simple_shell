@@ -40,7 +40,9 @@ int main(void)
 			exec_status = command_parser(argv);
 			if (exec_status)
 			{
-				free_environ();/*free new environ alloc*/
+				if(!environ)
+					free_environ();/*free mem alloc*/
+
 				/*exit without status*/
 				if (exec_status == -1)
 				{
