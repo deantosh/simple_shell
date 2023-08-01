@@ -44,7 +44,7 @@ int set_env(char **argv)
 	var_value = argv[2];
 
 	if (!var_name || !var_value)
-		return (-1);
+		return (0);
 
 	/*allocate memory of new value*/
 	new_value = malloc(strlen(var_name) + strlen(var_value) + 2);

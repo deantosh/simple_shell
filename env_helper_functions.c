@@ -52,7 +52,7 @@ int add_var_to_environ(int size, char *new_value)
  */
 int get_environ_len(void)
 {
-	int index;
+	int index = 0;
 
 	while (environ[index])
 		index++;
