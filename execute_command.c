@@ -10,7 +10,7 @@
  *				to the program.
  * @argv: The list of arguments used by the command.
  *
- * Return: 0 (success) and 1 (fails).
+ * Return: 0 (success), 1 (fails) and result.
  */
 int execute_builtin_command(char **argv)
 {

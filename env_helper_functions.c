@@ -10,7 +10,7 @@
  *					not add NULL.
  * @size: The size on the new_environ.
  * @new_value: The environ variable to add to the created environ.
- * Return: 0 (success) or 1 (fails).
+ * Return: -2(success) or 1(fails).
 */
 int add_var_to_environ(int size, char *new_value)
 {
@@ -42,7 +42,7 @@ int add_var_to_environ(int size, char *new_value)
 	environ = new_environ; /*point to new mem*/
 	environ[index] = new_value;
 	environ[index + 1] = NULL;
-	return (0);
+	return (-2);
 }
 
 /**

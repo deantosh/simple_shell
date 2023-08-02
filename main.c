@@ -15,42 +15,36 @@ int main(void)
 	char **argv, *str = NULL;
 	size_t n = 0;
 	ssize_t n_bytes;
-	int exec_status;
+	int exec_status, e = 0;
 
 	while (1)
 	{
-		/*execute on interactive mode*/
 		if (isatty(STDIN_FILENO))
 			printf("%s ", PROMPT);
-
-		/*read from stdin stream*/
 		n_bytes = getline(&str, &n, stdin);
 		if (n_bytes == -1)
 		{
 			free(str);
-			free_environ();
-			/*new line character removed*/
+			if (e)
+				free_environ();
 			return (0);
 		}
-		/*pass str to function to create argv*/
 		argv = str_parser_to_create_av(str, n_bytes);
 		if (argv)
 		{
-			/*pass args for execution*/
 			exec_status = command_parser(argv);
-			if (exec_status)
+			if (exec_status == -2)/*if env is successfully set*/
 			{
-				if(!environ)
-					free_environ();/*free mem alloc*/
-
-				/*exit without status*/
-				if (exec_status == -1)
-				{
-					free(str);
-					return (0);
-				}
-				/*exit with status*/
+				e = 1;
+				continue;
+			}
+			if (exec_status)/*exit*/
+			{
 				free(str);
+				if (e)/*free new_environ on exit*/
+					free_environ();
+				if (exec_status == -1)/*without status*/
+					return (0);
 				return (exec_status);
 			}
 		}
