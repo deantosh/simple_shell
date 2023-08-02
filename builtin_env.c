@@ -59,7 +59,6 @@ int set_env(char **argv)
 	env_var = _getenv(var_name);
 	if (env_var)
 	{
-		free(*env_var); /*empty it*/
 		*env_var = new_value;
 		return (0);
 	}
