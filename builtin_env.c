@@ -83,17 +83,17 @@ int unset_env(char **argv)
 
 	var_name = argv[1];
 	if (var_name == NULL)
-		return (1);
+		return (0);
 
 	delete_var = _getenv(var_name); /*gets the environment var to delete*/
 	if (delete_var == NULL)
-		return (1);
+		return (0);
 
 	/*create a copy of the environ*/
 	len = get_environ_len();
 	new_environ = malloc(sizeof(char *) * len);
 	if (new_environ == NULL)
-		return (1);
+		return (0);
 
 	while (environ[index1])
 	{
