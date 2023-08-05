@@ -32,7 +32,7 @@ int main(void)
 		argv = str_parser_to_create_av(str, n_bytes);
 		if (argv)
 		{
-			exec_status = command_parser(argv);
+			exec_status = command_loop(argv);
 			if (exec_status == -2)/*if env is successfully set*/
 			{
 				e = 1;
@@ -48,6 +48,7 @@ int main(void)
 				return (exec_status);
 			}
 		}
+		free_pp(argv);/*free list of arguments*/
 	}
 	return (0);
 }
