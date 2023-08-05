@@ -116,9 +116,10 @@ int is_command_separator(char **argv, char *delim, int start_pos)
 {
 	int ret, index = 0;
 
-	index = start_pos;
+	if(start_pos > 0)
+		index = start_pos;
 
-	while (argv[index])
+	while (argv[index] != NULL)
 	{
 		ret = strncmp(argv[index], delim, 1);
 		if (ret == 0)
