@@ -6,7 +6,7 @@
 
 /**
  *get_pwd_env - Update the PWD environment
- *         to current working directory.
+ *        to current working directory.
  */
 
 void get_pwd_env(void)
@@ -31,6 +31,7 @@ void get_pwd_env(void)
  */
 int change_directory(char **argv)
 {
+<<<<<<< HEAD
 	char *path = argv[1];
 
 	if (chdir(path) == -1)/*fails to change*/
@@ -41,3 +42,14 @@ int change_directory(char **argv)
 	get_pwd_env();
 	return (0);
 }
+=======
+    if (chdir(path) != 0)
+    {
+        perror("chdir");
+        return (-1);
+    }
+
+    get_pwd_env();
+    return (0);
+}
+>>>>>>> main
