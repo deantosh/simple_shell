@@ -80,10 +80,17 @@ int print_env(char **argv);
 int set_env(char **argv);
 int unset_env(char **argv);
 
-/*file: env_helper_functions*/
+/*file: env_helper_functions.c*/
 int add_var_to_environ(int size, char *value);
 int get_environ_len(void);
 void free_environ(void);
 char **_getenv(const char *name);
+
+/*file: handle_multiple_commands.c*/
+int command_loop(char **argv);
+char **create_list_copy(char **argv, int start_pos, int num_tokens);
+int num_commands(char **argv, char *delim);
+int is_command_separator(char **argv, char *delim, int start_pos);
+int num_tokens(char **argv, int start_pos);
 
 #endif /*MAIN_H*/
