@@ -50,17 +50,16 @@ char *create_path(char *token, char *command);
 /*file: memory.c*/
 void free_pp(char **pp);
 
-/*file custom_getline.c*/
+/*file: custom_getline.c*/
 ssize_t custom_getline(char **lineptr, size_t *n, FILE *stream);
-
-/*Helper function for custom_getline.c File*/
-void ret_line(char **lineptr, size_t *n, char *buffer, size_t j);
-ssize_t read_input(char **input, FILE *stream);
 
 /*BUILTIN COMMANDS*/
 
 /*file: change_directory.c*/
 int change_directory(const char *path);
+
+/*helper function for custom_getline.c*/
+
 
 /*helper function for change_directory.c*/
 void get_pwd_env(void);

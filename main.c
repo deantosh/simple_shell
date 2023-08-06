@@ -24,8 +24,8 @@ int main(void)
 		if (isatty(STDIN_FILENO))
 			printf("%s ", PROMPT);
 		/*read from stdin stream*/
-		n_bytes = getline(&str, &n, stdin);
-      		if (n_bytes == -1)
+		n_bytes = custom_getline(&str, &n, stdin);
+		if (n_bytes == -1)
 		{
 			free(str);
 			printf("\n");
