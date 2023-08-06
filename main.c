@@ -22,9 +22,7 @@ int main(void)
 		if (isatty(STDIN_FILENO))
 			printf("%s ", PROMPT);
 
-		/*read from stdin stream*/
-		n_bytes = custom_getline(&str, &n, stdin);
-
+		n_bytes = getline(&str, &n, stdin);
 		if (n_bytes == -1)
 		{
 			free(str);
@@ -35,7 +33,7 @@ int main(void)
 		argv = str_parser_to_create_av(str, n_bytes);
 		if (argv)
 		{
-			exec_status = command_loop(argv);
+			exec_status = command_parser(argv);
 			if (exec_status == -2)/*if env is successfully set*/
 			{
 				e = 1;
@@ -51,7 +49,6 @@ int main(void)
 				return (exec_status);
 			}
 		}
-		free_pp(argv);/*free list of arguments*/
 	}
 	return (0);
 }
