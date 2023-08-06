@@ -21,12 +21,10 @@ int main(void)
 	{
 		if (isatty(STDIN_FILENO))
 			printf("%s ", PROMPT);
-<<<<<<< HEAD
-		n_bytes = getline(&str, &n, stdin);
-=======
+
 		/*read from stdin stream*/
 		n_bytes = custom_getline(&str, &n, stdin);
->>>>>>> main
+
 		if (n_bytes == -1)
 		{
 			free(str);
