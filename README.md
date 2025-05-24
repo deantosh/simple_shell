@@ -19,8 +19,7 @@
 
 ## Introduction
 
-This project is a custom implementation of a simple UNIX shell as part of the ALX Software Engineering Program. 
-The shell provides a command-line interface between the user and the operating system, allowing execution of commands, both built-in and external.
+This project is a custom implementation of a simple UNIX shell. The shell provides a command-line interface between the user and the operating system, allowing execution of commands, both built-in and external.
 
 ---
 
@@ -133,6 +132,7 @@ No known bugs at this time. Please report any issues.
 ## Authors
 
 Deantosh Daiddoh - [Github](https://github.com/deantosh) / [X](https://x.com/daiddoh)
+
 Lucky Archibong - [Github](https://github.com/luckys-lnz) / [X](https://x.com/)
 
 ---
